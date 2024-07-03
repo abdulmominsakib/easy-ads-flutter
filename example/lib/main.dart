@@ -14,17 +14,14 @@ void main() async {
     unityTestMode: true,
     adMobAdRequest: const AdRequest(),
     admobConfiguration: RequestConfiguration(testDeviceIds: []),
-    fbTestingId: '73f92d66-f8f6-4978-999f-b5e0dd62275a',
-    fbTestMode: true,
     showAdBadge: Platform.isIOS,
-    fbiOSAdvertiserTrackingEnabled: true,
   );
 
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +33,7 @@ class MyApp extends StatelessWidget {
 }
 
 class CountryListScreen extends StatefulWidget {
-  const CountryListScreen({Key? key}) : super(key: key);
+  const CountryListScreen({super.key});
 
   @override
   State<CountryListScreen> createState() => _CountryListScreenState();
@@ -81,11 +78,6 @@ class _CountryListScreenState extends State<CountryListScreen> {
                 onTap: () => _showAd(AdNetwork.admob, AdUnitType.interstitial),
               ),
               AdButton(
-                networkName: 'Facebook Interstitial',
-                onTap: () =>
-                    _showAd(AdNetwork.facebook, AdUnitType.interstitial),
-              ),
-              AdButton(
                 networkName: 'Unity Interstitial',
                 onTap: () => _showAd(AdNetwork.unity, AdUnitType.interstitial),
               ),
@@ -111,10 +103,6 @@ class _CountryListScreenState extends State<CountryListScreen> {
                 onTap: () => _showAd(AdNetwork.admob, AdUnitType.rewarded),
               ),
               AdButton(
-                networkName: 'Facebook Rewarded',
-                onTap: () => _showAd(AdNetwork.facebook, AdUnitType.rewarded),
-              ),
-              AdButton(
                 networkName: 'Unity Rewarded',
                 onTap: () => _showAd(AdNetwork.unity, AdUnitType.rewarded),
               ),
@@ -128,7 +116,6 @@ class _CountryListScreenState extends State<CountryListScreen> {
               ),
               const EasySmartBannerAd(
                 priorityAdNetworks: [
-                  AdNetwork.facebook,
                   AdNetwork.admob,
                   AdNetwork.unity,
                   AdNetwork.appLovin,
@@ -190,7 +177,7 @@ class _CountryListScreenState extends State<CountryListScreen> {
 
 class CountryDetailScreen extends StatefulWidget {
   final AdNetwork? adNetwork;
-  const CountryDetailScreen({Key? key, this.adNetwork}) : super(key: key);
+  const CountryDetailScreen({super.key, this.adNetwork});
 
   @override
   State<CountryDetailScreen> createState() => _CountryDetailScreenState();
@@ -242,8 +229,7 @@ class _CountryDetailScreenState extends State<CountryDetailScreen> {
 class AdButton extends StatelessWidget {
   final String networkName;
   final VoidCallback onTap;
-  const AdButton({Key? key, required this.onTap, required this.networkName})
-      : super(key: key);
+  const AdButton({super.key, required this.onTap, required this.networkName});
 
   @override
   Widget build(BuildContext context) {

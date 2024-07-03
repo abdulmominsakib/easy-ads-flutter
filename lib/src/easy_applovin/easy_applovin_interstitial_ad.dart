@@ -5,8 +5,8 @@ import 'package:easy_ads_flutter/src/enums/ad_unit_type.dart';
 
 class EasyApplovinInterstitialAd extends EasyAdBase {
   EasyApplovinInterstitialAd(
-    String adUnitId,
-  ) : super(adUnitId);
+    super.adUnitId,
+  );
 
   bool _isAdLoaded = false;
 

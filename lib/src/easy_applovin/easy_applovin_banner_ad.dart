@@ -4,7 +4,7 @@ import 'package:easy_ads_flutter/src/enums/ad_network.dart';
 import 'package:easy_ads_flutter/src/enums/ad_unit_type.dart';
 
 class EasyApplovinBannerAd extends EasyAdBase {
-  EasyApplovinBannerAd(String adUnitId) : super(adUnitId);
+  EasyApplovinBannerAd(super.adUnitId);
 
   @override
   AdUnitType get adUnitType => AdUnitType.banner;

@@ -8,14 +8,12 @@ import 'package:easy_ads_flutter/src/easy_admob/easy_admob_rewarded_ad.dart';
 import 'package:easy_ads_flutter/src/easy_applovin/easy_applovin_banner_ad.dart';
 import 'package:easy_ads_flutter/src/easy_applovin/easy_applovin_interstitial_ad.dart';
 import 'package:easy_ads_flutter/src/easy_applovin/easy_applovin_rewarded_ad.dart';
-import 'package:easy_ads_flutter/src/easy_facebook/easy_facebook_banner_ad.dart';
-import 'package:easy_ads_flutter/src/easy_facebook/easy_facebook_full_screen_ad.dart';
+
 import 'package:easy_ads_flutter/src/easy_unity/easy_unity_ad.dart';
 import 'package:easy_ads_flutter/src/utils/auto_hiding_loader_dialog.dart';
 import 'package:easy_ads_flutter/src/utils/easy_event_controller.dart';
 import 'package:easy_ads_flutter/src/utils/easy_logger.dart';
 import 'package:easy_ads_flutter/src/utils/extensions.dart';
-import 'package:easy_audience_network/easy_audience_network.dart';
 import 'package:flutter/material.dart';
 import 'package:unity_ads_plugin/unity_ads_plugin.dart';
 
@@ -57,14 +55,11 @@ class EasyAds {
   Future<void> initialize(
     IAdIdManager manager, {
     bool unityTestMode = false,
-    bool fbTestMode = false,
     bool isShowAppOpenOnAppStateChange = false,
     AdRequest? adMobAdRequest,
     RequestConfiguration? admobConfiguration,
     bool enableLogger = true,
-    String? fbTestingId,
     bool isAgeRestrictedUserForApplovin = false,
-    bool fbiOSAdvertiserTrackingEnabled = false,
     bool showAdBadge = false,
   }) async {
     _showAdBadge = showAdBadge;
@@ -76,17 +71,6 @@ class EasyAds {
 
     if (admobConfiguration != null) {
       MobileAds.instance.updateRequestConfiguration(admobConfiguration);
-    }
-
-    final fbAdId = manager.fbAdIds?.appId;
-    if (fbAdId != null && fbAdId.isNotEmpty) {
-      _initFacebook(
-        testingId: fbTestingId,
-        testMode: fbTestMode,
-        iOSAdvertiserTrackingEnabled: fbiOSAdvertiserTrackingEnabled,
-        interstitialPlacementId: manager.fbAdIds?.interstitialId,
-        rewardedPlacementId: manager.fbAdIds?.rewardedId,
-      );
     }
 
     final admobAdId = manager.admobAdIds?.appId;
@@ -161,15 +145,7 @@ class EasyAds {
           _eventController.setupEvents(ad);
         }
         break;
-      case AdNetwork.facebook:
-        final bannerId = adIdManager.fbAdIds?.bannerId;
-        assert(bannerId != null,
-            'You are trying to create a banner and Facebook Banner id is null in ad id manager');
-        if (bannerId != null) {
-          ad = EasyFacebookBannerAd(bannerId, adSize: adSize);
-          _eventController.setupEvents(ad);
-        }
-        break;
+
       case AdNetwork.appLovin:
         final bannerId = adIdManager.appLovinAdIds?.bannerId;
         assert(bannerId != null,
@@ -311,45 +287,6 @@ class EasyAds {
     if (rewardedPlacementId != null &&
         _rewardedAds.doesNotContain(AdNetwork.unity, AdUnitType.rewarded)) {
       final ad = EasyUnityAd(rewardedPlacementId, AdUnitType.rewarded);
-      _rewardedAds.add(ad);
-      _eventController.setupEvents(ad);
-
-      await ad.load();
-    }
-  }
-
-  Future _initFacebook({
-    required bool iOSAdvertiserTrackingEnabled,
-    required bool testMode,
-    String? testingId,
-    String? interstitialPlacementId,
-    String? rewardedPlacementId,
-  }) async {
-    final status = await EasyAudienceNetwork.init(
-        testingId: testingId,
-        testMode: testMode,
-        iOSAdvertiserTrackingEnabled: iOSAdvertiserTrackingEnabled);
-
-    _eventController.fireNetworkInitializedEvent(
-        AdNetwork.facebook, status ?? false);
-
-    // init interstitial ads
-    if (interstitialPlacementId != null &&
-        _interstitialAds.doesNotContain(
-            AdNetwork.facebook, AdUnitType.interstitial)) {
-      final ad = EasyFacebookFullScreenAd(
-          interstitialPlacementId, AdUnitType.interstitial);
-      _interstitialAds.add(ad);
-      _eventController.setupEvents(ad);
-
-      await ad.load();
-    }
-
-    // init rewarded ads
-    if (rewardedPlacementId != null &&
-        _rewardedAds.doesNotContain(AdNetwork.facebook, AdUnitType.rewarded)) {
-      final ad =
-          EasyFacebookFullScreenAd(rewardedPlacementId, AdUnitType.rewarded);
       _rewardedAds.add(ad);
       _eventController.setupEvents(ad);
 

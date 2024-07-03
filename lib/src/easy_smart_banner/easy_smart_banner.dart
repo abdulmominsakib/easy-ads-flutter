@@ -7,15 +7,13 @@ class EasySmartBannerAd extends StatefulWidget {
   final List<AdNetwork> priorityAdNetworks;
   final AdSize adSize;
   const EasySmartBannerAd(
-      {Key? key,
+      {super.key,
       this.priorityAdNetworks = const [
         AdNetwork.admob,
-        AdNetwork.facebook,
         AdNetwork.appLovin,
         AdNetwork.unity,
       ],
-      this.adSize = AdSize.banner})
-      : super(key: key);
+      this.adSize = AdSize.banner});
 
   @override
   State<EasySmartBannerAd> createState() => _EasySmartBannerAdState();
@@ -72,9 +70,6 @@ class _EasySmartBannerAdState extends State<EasySmartBannerAd> {
     final adIdManager = EasyAds.instance.adIdManager;
     if (adNetwork == AdNetwork.admob &&
         adIdManager.admobAdIds?.bannerId != null) {
-      return true;
-    } else if (adNetwork == AdNetwork.facebook &&
-        adIdManager.fbAdIds?.bannerId != null) {
       return true;
     } else if (adNetwork == AdNetwork.appLovin &&
         adIdManager.appLovinAdIds?.bannerId != null) {

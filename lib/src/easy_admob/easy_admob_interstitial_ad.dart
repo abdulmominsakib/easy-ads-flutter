@@ -8,10 +8,10 @@ class EasyAdmobInterstitialAd extends EasyAdBase {
   final bool _immersiveModeEnabled;
 
   EasyAdmobInterstitialAd(
-    String adUnitId,
+    super.adUnitId,
     this._adRequest,
     this._immersiveModeEnabled,
-  ) : super(adUnitId);
+  );
 
   InterstitialAd? _interstitialAd;
   bool _isAdLoaded = false;

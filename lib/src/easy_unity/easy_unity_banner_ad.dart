@@ -9,9 +9,9 @@ class EasyUnityBannerAd extends EasyAdBase {
   final AdSize? adSize;
 
   EasyUnityBannerAd(
-    String adUnitId, {
+    super.adUnitId, {
     this.adSize,
-  }) : super(adUnitId);
+  });
 
   bool _isAdLoaded = false;
 

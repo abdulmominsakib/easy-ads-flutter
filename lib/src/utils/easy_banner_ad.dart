@@ -8,8 +8,8 @@ class EasyBannerAd extends StatefulWidget {
   const EasyBannerAd({
     this.adNetwork = AdNetwork.admob,
     this.adSize = AdSize.banner,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<EasyBannerAd> createState() => _EasyBannerAdState();

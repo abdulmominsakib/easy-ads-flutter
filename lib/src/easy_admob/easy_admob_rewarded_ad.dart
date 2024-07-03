@@ -8,10 +8,10 @@ class EasyAdmobRewardedAd extends EasyAdBase {
   final bool _immersiveModeEnabled;
 
   EasyAdmobRewardedAd(
-    String adUnitId,
+    super.adUnitId,
     this._adRequest,
     this._immersiveModeEnabled,
-  ) : super(adUnitId);
+  );
 
   RewardedAd? _rewardedAd;
   bool _isAdLoaded = false;

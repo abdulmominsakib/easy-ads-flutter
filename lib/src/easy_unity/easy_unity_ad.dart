@@ -6,7 +6,7 @@ import 'package:unity_ads_plugin/unity_ads_plugin.dart';
 class EasyUnityAd extends EasyAdBase {
   final AdUnitType _adUnitType;
   bool _isAdLoaded = false;
-  EasyUnityAd(String adUnitId, this._adUnitType) : super(adUnitId);
+  EasyUnityAd(super.adUnitId, this._adUnitType);
 
   @override
   AdUnitType get adUnitType => _adUnitType;
