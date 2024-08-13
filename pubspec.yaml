@@ -13,8 +13,8 @@ dependencies:
     sdk: flutter
   google_mobile_ads: ^5.1.0
   collection: ^1.18.0
-  unity_ads_plugin: ^0.3.17
-  applovin_max: ^3.10.1 
+  unity_ads_plugin: ^0.3.20
+  applovin_max: ^3.11.0
   logger: ^2.3.0
 
 dev_dependencies:

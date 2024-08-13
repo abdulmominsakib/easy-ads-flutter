@@ -61,6 +61,7 @@ class EasyAds {
     bool enableLogger = true,
     bool isAgeRestrictedUserForApplovin = false,
     bool showAdBadge = false,
+    Map<int, List<int>>? segments,
   }) async {
     _showAdBadge = showAdBadge;
     if (enableLogger) _logger.enable(enableLogger);
@@ -109,10 +110,10 @@ class EasyAds {
     if (appLovinSdkId != null && appLovinSdkId.isNotEmpty) {
       EasyAds.instance._initAppLovin(
         sdkKey: appLovinSdkId,
-        keywords: adMobAdRequest?.keywords,
         isAgeRestrictedUser: isAgeRestrictedUserForApplovin,
         interstitialAdUnitId: manager.appLovinAdIds?.interstitialId,
         rewardedAdUnitId: manager.appLovinAdIds?.rewardedId,
+        segments: segments,
       );
     }
   }
@@ -210,17 +211,16 @@ class EasyAds {
     bool? isAgeRestrictedUser,
     String? interstitialAdUnitId,
     String? rewardedAdUnitId,
-    List<String>? keywords,
+    Map<int, List<int>>? segments,
   }) async {
     final response = await AppLovinMAX.initialize(sdkKey);
 
-    AppLovinMAX.targetingData.maximumAdContentRating =
-        isAgeRestrictedUser == true
-            ? AdContentRating.allAudiences
-            : AdContentRating.none;
+    AppLovinMAX.setIsAgeRestrictedUser(isAgeRestrictedUser ?? false);
 
-    if (keywords != null) {
-      AppLovinMAX.targetingData.keywords = keywords;
+    if (segments != null) {
+      segments.forEach((key, values) {
+        AppLovinMAX.addSegment(key, values);
+      });
     }
 
     if (response != null) {
