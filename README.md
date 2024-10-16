@@ -33,8 +33,6 @@ To easily integrate ads from different ad networks into your flutter app.
 Update your app's `ios/Runner/Info.plist` file to add two keys:
 
 ```xml
-<key>AppLovinSdkKey</key>
-<string>YOUR_SDK_KEY</string>
 <key>GADApplicationIdentifier</key>
 <string>YOUR_SDK_KEY</string>
 ```
@@ -48,8 +46,6 @@ Update your app's `ios/Runner/Info.plist` file to add two keys:
 ```xml
 <manifest>
     <application>
-        <meta-data android:name="applovin.sdk.key"
-            android:value="YOUR_SDK_KEY"/>
         <!-- Sample AdMob App ID: ca-app-pub-3940256099942544~3347511713 -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
@@ -125,8 +121,6 @@ const IAdIdManager adIdManager = TestAdIdManager();
 EasyAds.instance.initialize(
     adIdManager,
     adMobAdRequest: const AdRequest(),
-    // Set true if you want to show age restricted (age below 16 years) ads for applovin 
-    isAgeRestrictedUserForApplovin: true,
     // To enable Facebook Test mode ads
     fbTestMode: true,
     admobConfiguration: RequestConfiguration(testDeviceIds: [
@@ -149,11 +143,6 @@ EasyAds.instance.loadAd();
 ### Show interstitial or rewarded ad
 ```dart
 EasyAds.instance.showAd(AdUnitType.rewarded);
-```
-
-### Show random interstitial ad
-```dart
-EasyAds.instance.showRandomAd(AdUnitType.interstitial)
 ```
 
 ### Show appOpen ad
@@ -240,6 +229,3 @@ if (EasyAds.instance.showInterstitialAd()) {
 ##### Noor Ali Butt
 [![GitHub Follow](https://img.shields.io/badge/Connect--blue.svg?logo=Github&longCache=true&style=social&label=Follow)](https://github.com/nooralibutt) [![LinkedIn Link](https://img.shields.io/badge/Connect--blue.svg?logo=linkedin&longCache=true&style=social&label=Connect
 )](https://www.linkedin.com/in/nooralibutt)
-##### Hanzla Waheed
-[![GitHub Follow](https://img.shields.io/badge/Connect--blue.svg?logo=Github&longCache=true&style=social&label=Follow)](https://github.com/mhanzla80) [![LinkedIn Link](https://img.shields.io/badge/Connect--blue.svg?logo=linkedin&longCache=true&style=social&label=Connect
-)](https://www.linkedin.com/in/mhanzla80)
